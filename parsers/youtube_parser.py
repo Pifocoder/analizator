@@ -1,10 +1,12 @@
 from api_youtube import *
+
 def getVideoID_VideoURL(videoURL):
     from pytube import extract
     return extract.video_id(videoURL)
 
 def getBasicInfo(response):
     dict = {}
+    dict['url'] = 'https://www.youtube.com/watch?v=' + response['items'][0]['id']
     dict['id'] = response['items'][0]['id']
     dict['title'] = response['items'][0]['snippet']['title']
     dict['description'] = response['items'][0]['snippet']['description']
@@ -18,15 +20,13 @@ def makeCommDict(id, snippet, parentId = False):
         'text': snippet['textOriginal'],
         'parent_id': parentId,
         'author': snippet['authorDisplayName'],
-        'authorId': snippet['authorChannelId']['value'],
+        'author_id': snippet['authorChannelId']['value'],
         'likes': snippet['likeCount'],
         'date_published': snippet['publishedAt'],
         'date_updated': snippet['updatedAt'],
         'video_id': snippet['videoId'],
-        'author_channel_id' : snippet['authorChannelId']['value']  if 'authorChannelId' in snippet else False,
-        'replies' : 0
+        'replies': 0
     }
-    #tmp['author_comment'] = tmp['author_channel_id'] and tmp['author_channel_id'] == channel_ID
     return tmp
 
 def process_comments(response):
@@ -53,7 +53,7 @@ def commentThreads_VideoID(videoID: str):
     ).execute()
     comments_list = []
     comments_list.extend(process_comments(response))
-    limit = 20 # var changeable
+    limit = 10 # var changeable
     while response.get('nextPageToken', None) and limit:
         request = youtube.commentThreads().list(
             part='id,replies,snippet',
@@ -68,11 +68,14 @@ def commentThreads_VideoID(videoID: str):
     return comments_list
 
 def getVideoCaptions(videoId: str) :
-    src = YouTubeTranscriptApi.get_transcript(videoId, languages=['ru'])
-    return src
+    try:
+        return YouTubeTranscriptApi.get_transcript(videoId, languages=['ru'])
+    except:
+        return ""
 
-def getVideoInfo_byVideoURL(videoURL: str):
-    videoID = getVideoID_VideoURL(videoURL);
+
+def getVideoInfo(videoID: str, channelID):
+    # videoID = getVideoID_VideoURL(videoURL);
     videoInfo = {}
     request = youtube.videos().list(
         part="snippet,contentDetails,statistics,id",
@@ -80,18 +83,62 @@ def getVideoInfo_byVideoURL(videoURL: str):
     )
     response = request.execute()
     videoInfo = getBasicInfo(response)
+    videoInfo['channel_id'] = channelID
     videoInfo['likeCnt'] = response['items'][0]['statistics']['likeCount']
     videoInfo['commCnt'] = response['items'][0]['statistics']['commentCount']
     comments = commentThreads_VideoID(videoID)
-    videoInfo['captions'] = getVideoCaptions(videoID);
-    return [videoInfo, comments]
+    capt = list(getVideoCaptions(videoID))
+    videoInfo['captions'] = "".join(" ".join([a['text'] for a in capt]).split("Музыка"))
+    return { "videoINFO" : videoInfo,
+             "comments" : comments }
 
-def getINFO(video_URL):
-    # example ntv video
-    #ntv_url = "https://www.youtube.com/watch?v=Diz-6gO6wrY&t=14s&ab_channel=%D0%9D%D0%A2%D0%92%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8"
 
-    data = getVideoInfo_byVideoURL(video_URL)
-    video_comments = data[1]
-    captions = "".join(" ".join([a['text'] for a in data[0]['captions']]).split("[Музыка]"))
-    captions_list = captions.split()
-    return data
+def getINFO_posts(channelID):
+    # request = youtube.channels().list(
+    #     part="snippet,contentDetails,statistics",
+    #     id=channelID
+    # )
+    # response = request.execute()
+    # channelInfo = getBasicInfo(response)
+    # channelInfo['subscrib'] = response['items'][0]['statistics']['subscriberCount']
+    # channelInfo['videoCnt'] = response['items'][0]['statistics']['videoCount']
+    # channelInfo['listVideoIDs'] = []
+    videoIDs = []
+    request = youtube.search().list(
+        part="snippet",
+        channelId=channelID,
+        type="video",
+        #order="viewCount",
+        maxResults=50
+    )
+    response = request.execute()
+    responseItems = response['items']
+    videoIDs.extend([item['id']['videoId'] for item in responseItems if item['id'].get('videoId', None) != None])
+    limit = 0
+    # есть лимит на количество запросов, самая дорогая операция - получение списка всех видео на канале
+    # поэтому делаю запрос на максимум 50-100 видео с канала
+    while response.get('nextPageToken', None) and limit:
+        request = youtube.search().list(
+            part="snippet",
+            channelId=channelID,
+            pageToken=response['nextPageToken'],
+            type="video",
+            order="viewCount",
+            maxResults=50
+        )
+        response = request.execute()
+        responseItems = response['items']
+        videoIDs.extend([item['id']['videoId'] for item in responseItems if item['id'].get('videoId', None) != None])
+        limit -= 1
+    videos = []
+    for id_i in videoIDs:
+        data = getVideoInfo(id_i, channelID)
+        if data['videoINFO']['captions'] != "" and len(data['comments']) != 0:
+            videos.append(data)
+    return videos
+
+def getINFO(channel_IDS):
+    posts = []
+    for id_ in channel_IDS:
+        posts += getINFO_posts(id_)
+    return posts
