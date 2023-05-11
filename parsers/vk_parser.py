@@ -48,18 +48,15 @@ def parse_vk_group(owner_id, access_token, api_version, count):
                     time.sleep(0.1)
     return result
 
-def parse_vk(access_token, api_version, count):
-    result = []
-    groups = [-170206299, -211210115, -26323016, 453382669, -30266386, -52620949, 561960677, 565282958, -148321046, -98331381, -216321473]
-    for group in groups:
-        print(parse_vk_group(group, access_token, api_version, count))
-        result += parse_vk_group(group, access_token, api_version, count)
-
-def main():
+def parse_vk(groups):
     access_token = input("Enter VK access_token")
     count = int(input("Enter number of posts"))
     api_version = "5.131"
-    parse_vk(access_token, api_version, count)
 
-if __name__ == "__main__":
-    main()
+    result = []
+    # groups = [-170206299, -211210115, -26323016, 453382669, -30266386, -52620949, 561960677, 565282958, -148321046, -98331381, -216321473]
+    for group in groups:
+        #print(parse_vk_group(group, access_token, api_version, count))
+        result += parse_vk_group(group, access_token, api_version, count)
+
+    return result

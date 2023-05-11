@@ -88,9 +88,9 @@ def getVideoInfo_byVideoURL(videoURL: str):
 
 def getINFO(video_URL):
     # example ntv video
-    ntv_url = "https://www.youtube.com/watch?v=Diz-6gO6wrY&t=14s&ab_channel=%D0%9D%D0%A2%D0%92%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8"
+    #ntv_url = "https://www.youtube.com/watch?v=Diz-6gO6wrY&t=14s&ab_channel=%D0%9D%D0%A2%D0%92%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8"
 
-    data = getVideoInfo_byVideoURL(ntv_url)
+    data = getVideoInfo_byVideoURL(video_URL)
     video_comments = data[1]
     captions = "".join(" ".join([a['text'] for a in data[0]['captions']]).split("[Музыка]"))
     captions_list = captions.split()
