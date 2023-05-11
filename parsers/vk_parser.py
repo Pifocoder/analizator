@@ -7,7 +7,7 @@ def parse_vk_group(owner_id, access_token, api_version, count):
     for offset in range(0, count, 100):
         url_get_posts_formatted = url_get_posts.format(owner_id=owner_id, count=100, offset=offset,
                                                        access_token=access_token, api_version=api_version)
-        print(url_get_posts_formatted)
+        # print(url_get_posts_formatted)
         posts = (requests.get(url_get_posts_formatted)).json()['response']['items']
         url_get_comments = 'https://api.vk.com/method/wall.getComments?owner_id={owner_id}&post_id={post_id}&need_likes={need_likes}&offset={offset}&count={count}&preview_length={preview_length}&access_token={access_token}&v={api_version}'
 
@@ -18,7 +18,7 @@ def parse_vk_group(owner_id, access_token, api_version, count):
                     'text': post['text'].replace('\n', '. '),
                     'id': post['id'],
                     'likes': post['likes']['count'],
-                    'views': post['views']['count']
+                    'viewCnt': post['views']['count']
                 },
                 'comments' : []
             })
@@ -33,16 +33,18 @@ def parse_vk_group(owner_id, access_token, api_version, count):
                                                                         preview_length=0,
                                                                         access_token=access_token,
                                                                         api_version=api_version)
-                    print(url_get_comments_formated)
+                    # print(url_get_comments_formated)
                     comments = (requests.get(url_get_comments_formated)).json()['response']['items']
                     for comment in comments:
-                        # TODO stickers
                         if (comment['text'] != ''):
                             result[-1]['comments'].append(
                                 {
                                     'id': comment['id'],
                                     'text' : comment['text'].replace('\n', '. '),
-                                    'likes' : comment['likes']['count']
+                                    'likes' : comment['likes']['count'],
+                                    'author_id' : comment['from_id'],
+                                    'date_published': comment['date'],
+                                    'post_id': comment['post_id']
                                 }
                             )
                     time.sleep(0.1)
