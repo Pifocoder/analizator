@@ -31,6 +31,24 @@ const videos = [
         url : "auqPIfVSUOM",
         statistics : [0.4, 0.5],
         statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+    {
+        title : "Велосипеды",
+        url : "auqPIfVSUOM",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+    {
+        title : "Велосипеды",
+        url : "auqPIfVSUOM",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+    {
+        title : "Велосипеды",
+        url : "auqPIfVSUOM",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
     }
 ]
 const posts = [
@@ -69,6 +87,70 @@ const posts = [
         statistics : [0.4, 0.5],
         statisticsNames : ["Позитивность новости", "Реакция людей"]
     },
+    {
+        title: "Новость",
+        theme: "Тема",
+        text: "Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+    {
+        title: "Новость",
+        theme: "Тема",
+        text: "Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+    {
+        title: "Новость",
+        theme: "Тема",
+        text: "Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+    {
+        title: "Новость",
+        theme: "Тема",
+        text: "Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+    {
+        title: "Новость",
+        theme: "Тема",
+        text: "Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+    {
+        title: "Новость",
+        theme: "Тема",
+        text: "Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+    {
+        title: "Новость",
+        theme: "Тема",
+        text: "Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+    {
+        title: "Новость",
+        theme: "Тема",
+        text: "Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+    {
+        title: "Новость",
+        theme: "Тема",
+        text: "Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек",
+        statistics : [0.4, 0.5],
+        statisticsNames : ["Позитивность новости", "Реакция людей"]
+    },
+
 ]
 
 const header = document.querySelector('.header');
@@ -82,12 +164,31 @@ function initHeader() {
         newSlideImg.src = `//img.youtube.com/vi/${video["url"]}/maxresdefault.jpg`;
         
         newSlide.querySelector('.swiper__link').href = "#";
-        newSlide.querySelector('.swiper__link').textContent = "Подробнее...";
+        newSlide.querySelector('.swiper__link').textContent = video["title"];
         
+        newSlide.addEventListener('click', (evt) => openFullVideo(video["title"], video["url"]))
         swiperWrapper.append(newSlide);
     });
 }
+const mainPage = document.querySelector('.main-page')
+const postPage = document.querySelector('.post-page');
+function openFullPost(title, text) {
+    postPage.classList.add('open');
+    mainPage.classList.remove('open');
 
+    postPage.querySelector('.post__title').textContent = title;
+    postPage.querySelector('.post__text').textContent = text;
+    //postPage.querySelector('.post__creator')
+}
+
+const videoPage = document.querySelector('.video-page');
+function openFullVideo(title, url) {
+    videoPage.classList.add('open');
+    mainPage.classList.remove('open');
+
+    videoPage.querySelector('.video-page__title').textContent = title;
+    videoPage.querySelector('.video-page__video').src = `http://www.youtube.com/embed/${url}`;
+}
 const cardTemplate = document.querySelector('#card').content;
 const cardStatTempalte = cardTemplate.querySelector('#card__stat').content;
 const cardList = document.querySelector('.list');
@@ -107,6 +208,7 @@ function initNewsList() {
             
             stats.append(newStat);
         }
+        newPost.addEventListener('click',(evt) => openFullPost(post["title"], post["text"]));
         cardList.append(newPost);
     });
 }
