@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
   <link
         />
   <title>Новости</title>
@@ -16,110 +15,45 @@
         </section>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <img src="//img.youtube.com/vi/auqPIfVSUOM/maxresdefault.jpg" class="swiper__news">
-              </div>
-              <div class="swiper-slide">
-                <img src="//img.youtube.com/vi/auqPIfVSUOM/maxresdefault.jpg" class="swiper__news">
-                <div class="swiper__link-area">
-                    <a class="swiper__link" href="#">Подробнее...</a>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="//img.youtube.com/vi/auqPIfVSUOM/maxresdefault.jpg" class="swiper__news">
-                <div class="swiper__link-area">
-                    <a class="swiper__link" href="#">Подробнее...</a>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="//img.youtube.com/vi/auqPIfVSUOM/maxresdefault.jpg" class="swiper__news">
-                <div class="swiper__link-area">
-                    <a class="swiper__link" href="#">Подробнее...</a>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="//img.youtube.com/vi/auqPIfVSUOM/maxresdefault.jpg" class="swiper__news">
-                <div class="swiper__link-area">
-                    <a class="swiper__link" href="#">Подробнее...</a>
-                </div>
-              </div>
+                <template id="swiper-slide">
+                    <div class="swiper-slide">
+                        <img src="" class="swiper__news">
+                        <div class="swiper__link-area">
+                            <a class="swiper__link" href=""></a>
+                        </div>
+                    </div>
+                  </template>
             </div>
             <div class="swiper-pagination"></div>
           </div>    
     </header>
     <main class="main">
         <section class="list">
-            <div class="card">
-                <div class="card__stat">
-                    <div class=""></div>
-                    <span class="card__stat-name"></span>
+            <template id="card">
+                <div class="card">
+                    <div class="card__info">
+                        <h2 class="card__title"></h2>
+                        <div class="theme-area">
+                            <h3 class="card__theme"></h3>
+                        </div>
+                        <p class="card__preview"></p>
+                    </div>
+                    <div class="card__stat-area">
+                        <template id="card__stat">
+                            <div class="card__stat">
+                                <div class="card__stat-line-limit">
+                                    <div class="card__stat-line"></div>
+                                </div>
+                                <span class="card__stat-name"></span>
+                            </div>
+                        </template>
+                    </div>
                 </div>
-                <div class="theme-area">
-                    <h3 class="card__theme">Спорт</h3>
-                </div>
-                <h2 class="card__title">Новость</h2>
-                <p class="card__preview">Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек</p>
-            </div>
-            <!-- <div class="card">
-                <img class="card__stat" src="images/eberhard-grossgasteiger-uKkh1O-AmU0-unsplash.jpg">
-                <div class="theme-area">
-                    <h3 class="card__theme">Спорт</h3>
-                </div>
-                <h2 class="card__title">Новость</h2>
-                <p class="card__preview">Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек</p>
-            </div>
-            <div class="card">
-                <img class="card__stat" src="images/kevin-snow-Pvyue6LixGY-unsplash.jpg">
-                <div class="theme-area">
-                    <h3 class="card__theme">Спорт</h3>
-                </div>
-                <h2 class="card__title">Новость</h2>
-                <p class="card__preview">Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек</p>
-            </div>
-            <div class="card">
-                <img class="card__stat" src="images/eberhard-grossgasteiger-uKkh1O-AmU0-unsplash.jpg">
-                <div class="theme-area">
-                    <h3 class="card__theme">Спорт</h3>
-                </div>
-                <h2 class="card__title">Новость</h2>
-                <p class="card__preview">Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек</p>
-            </div>
-            <div class="card">
-                <img class="card__stat" src="images/kevin-snow-Pvyue6LixGY-unsplash.jpg">
-                <div class="theme-area">
-                    <h3 class="card__theme">Спорт</h3>
-                </div>
-                <h2 class="card__title">Новость</h2>
-                <p class="card__preview">Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек</p>
-            </div>
-            <div class="card">
-                <img class="card__stat" src="images/eberhard-grossgasteiger-uKkh1O-AmU0-unsplash.jpg">
-                <div class="theme-area">
-                    <h3 class="card__theme">Спорт</h3>
-                </div>
-                <h2 class="card__title">Новость</h2>
-                <p class="card__preview">Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек</p>
-            </div>
-            <div class="card">
-                <img class="card__stat" src="images/kevin-snow-Pvyue6LixGY-unsplash.jpg">
-                <div class="theme-area">
-                    <h3 class="card__theme">Спорт</h3>
-                </div>
-                <h2 class="card__title">Новость</h2>
-                <p class="card__preview">Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек</p>
-            </div>
-            <div class="card">
-                <img class="card__stat" src="images/eberhard-grossgasteiger-uKkh1O-AmU0-unsplash.jpg">
-                <div class="theme-area">
-                    <h3 class="card__theme">Спорт</h3>
-                </div>
-                <h2 class="card__title">Новость</h2>
-                <p class="card__preview">Даже если вы новичок в дизайне в поисках идеальных цветов для своего сайта, эти палитры помогут создать по-настоящему профессиональный и модный проек</p>
-            </div> -->
+            </template>
         </section>
-        <section class="list-increase">
+        <!-- <section class="list-increase">
             <button class="list-increase__add"></button>
-        </section>
+        </section> -->
     </main>
 </body>
 </html>

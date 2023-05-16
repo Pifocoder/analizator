@@ -1,20 +1,44 @@
 @keyframes hovering {
     0% {
-        box-shadow: none
+        box-shadow: none;
+        background-color: #026670;
+    }
+    100% {
+        border:1px black;
+        box-shadow:  5px 5px rgba(0,0,0,1);
+        background-color: black;
+    }
+}
+@keyframes unhovering {
+    0% {
+        border:1px black;
+        box-shadow:  5px 5px rgba(0,0,0,1);
+        background-color: black;
+    }
+    100% {
+        border: 0px;
+        box-shadow: none;
+        background-color: #026670;
+    }
+}
+@keyframes hovering-text {
+    0% {
+        border: 0px;
+        box-shadow: none;
     }
     100% {
         border:1px black;
         box-shadow:  3px 3px rgba(0,0,0,1);
     }
 }
-@keyframes unhovering {
+@keyframes unhovering-text {
     0% {
         border:1px black;
         box-shadow:  3px 3px rgba(0,0,0,1);
     }
     100% {
         border: 0px;
-        box-shadow: none
+        box-shadow: none;
     }
 }
 
@@ -79,11 +103,24 @@
     border-radius: 20px;
     justify-self: center;
     overflow: hidden;
+    animation: unhovering 2s forwards;
+}
+.card__stat-line-limit {
+    position: relative;
+    height: 10px;
+    overflow: hidden;
+    z-index: 2;
+    border-radius: 6%;
+}
+.card__stat-line{
+    background: rgb(255,0,0);
+    background: linear-gradient(90deg, rgba(255, 0, 0, 0.773) 0%, rgba(210, 196, 0, 0.881) 25%, rgba(38, 255, 0, 0.944) 100%);
+    width: calc(300px * 0.85);
+    height: 10px;
 }
 .card__title {
     margin: 0px auto;
-    margin-top: 18px;
-    width: 95%;
+    margin-top: 10px;
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 900;
@@ -107,11 +144,28 @@
     font-size: 14px;
     line-height: 17px;
     text-align: left;
-    width:95%;
 }
-.card__stat {
+.card__stat-area {
     margin: 0px auto;
-    /* width: 310px; */
+    display: grid;
+    grid-template-columns: auto;
+    grid-row-gap: 10px;
+    width: 85%;
+    margin-bottom: 10px;
+    margin-top: 25px;
+}
+.card__stat-name {
+    color: white;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: left;
+}
+/* .card__stat {
+    margin: 0px auto;
+    width: 310px;
     max-width: 100%;
     border-radius: 13px 13px 0px 0px;
     object-fit: cover;
@@ -119,36 +173,34 @@
     -moz-transition: all 0.5s;
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
-}
-.card:hover .card__image {
+} */
+/* .card:hover .card__image {
     -moz-transform: scale(1.1);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
-}
+} */
 .card:hover {
     cursor: pointer;
+    animation: hovering 2s forwards;
 }
 .theme-area {
-    background-color: #ffff;
-    border-radius: 40%;
-    opacity: 0.9;
-    margin-left: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    width: fit-content;
+    margin: 0px auto;
 }
 .card__theme {
     margin: 0px 0px;
-    margin-top: -30px;
+    margin-top: 10px;
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 18px;
+    line-height: 24px;
     text-align: left;
-    color: black;
+    color: white;
 }
-
+.card__info {
+    width: 85%;
+    margin: 0px auto;
+}
 .swiper {
     margin: 0px auto;
     margin-top: 20px;
@@ -187,8 +239,10 @@
     margin-left: 10px;
     padding-left: 10px;
     padding-right: 10px;
+    margin-bottom: 19px;
+
     width: fit-content;
-    animation: unhovering 1.5s forwards;
+    animation: unhovering-text 1.5s forwards;
 }
 
 .swiper__link {
@@ -203,7 +257,7 @@
     text-decoration: none;
 }
 .swiper__link-area:hover {
-    animation: hovering 1.5s forwards;
+    animation: hovering-text 1.5s forwards;
 }
 .swiper__title-area {
     margin-top: -40px;
@@ -214,10 +268,10 @@
     padding-left: 10px;
     padding-right: 10px;
     width: fit-content;
-    animation: unhovering 1.5s forwards;
+    animation: unhovering-text 1.5s forwards;
 }
 .swiper__title-area:hover {
-    animation: hovering 1.5s forwards;
+    animation: hovering-text 1.5s forwards;
 }
 .swiper__title {
     margin: 0px 0px;
