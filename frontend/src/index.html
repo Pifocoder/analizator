@@ -8,7 +8,7 @@
   <title>Новости</title>
 </head>
 <body class="page">
-    <div class="main-page open">
+    <div class="main-page">
         <header class="header">
             <img class="header-image" src="<%=require('./images/kevin-snow-Pvyue6LixGY-unsplash.jpg')%>">
             <section class="nav-bar">
@@ -19,8 +19,8 @@
                     <template id="swiper-slide">
                         <div class="swiper-slide">
                             <img src="" class="swiper__news">
-                            <div class="swiper__link-area">
-                                <a class="swiper__link" href=""></a>
+                            <div class="swiper__title-area">
+                                <h2 class="swiper__title" href=""></h2>
                             </div>
                         </div>
                       </template>
@@ -40,13 +40,11 @@
                             <p class="card__preview"></p>
                         </div>
                         <div class="card__stat-area">
-                            <h3 class="card__stat-title">Статистики новости:</h3>
+                            <!-- <h3 class="card__stat-title">Анализ новости:</h3> -->
                             <template id="card__stat">
                                 <div class="card__stat">
                                     <div class="card__stat-line-border">
-                                        <div class="card__stat-line-limit">
-                                            <div class="card__stat-line"></div>
-                                        </div>
+                                       <div class="card__stat-line"></div>
                                     </div>
                                     <span class="card__stat-name"></span>
                                 </div>
@@ -60,13 +58,30 @@
             </section> -->
         </main>
     </div>
-    <div class="post-page">
-        <h1 class="post__title"></h1>
-        <p class="post__text"></p>
+    <div class="post-page close">
+        <div class="post-page__bar">
+            <div class="post-page__come-back">
+                Назад
+            </div>
+        </div>
+        <div class="post-page__info">
+            <h1 class="post-page__title"></h1>
+            <p class="post-page__text"></p>
+        </div>
     </div>
-    <div class="video-page">
-        <h1 class="video-page__title"></h1>
-        <iframe class="video-page__video" src="" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="video-page close">
+        <div class="video-page__bar">
+            <div class="video-page__come-back">
+                Назад
+            </div>
+        </div>
+        <div class="video-page__info">
+            <h1 class="video-page__title"></h1>
+            <iframe class="video-page__video" src="" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>    
+        </div> 
     </div>
+    <footer class="footer">
+        <a class="footer__text" href="https://hsse.mipt.ru/">© HSSE INTERTAINMENT</a>
+      </footer>
 </body>
 </html>
