@@ -1,5 +1,5 @@
 import queue
-import make_assoc_graphs
+from .make_assoc_graphs import get_hash_without_adding
 from pymystem3 import Mystem
 
 
@@ -9,8 +9,8 @@ def make_text_good(text):
 
     result = []
     for item in lemmas:
-        if make_assoc_graphs.get_hash_without_adding(item) != -1:
-            result.append(make_assoc_graphs.get_hash_without_adding(item))
+        if get_hash_without_adding(item) != -1:
+            result.append(get_hash_without_adding(item))
     return result
 
 
