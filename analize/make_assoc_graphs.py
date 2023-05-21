@@ -37,7 +37,7 @@ def make_nodist_graph():
     for i in range(len(hash_table) * max_sub_array_size):
         graph.append([])
 
-    with open('../datasets/assoc.csv') as assoc_dataset:
+    with open('analize/datasets/assoc.csv') as assoc_dataset:
         reader = csv.reader(assoc_dataset)
         for row in reader:
             if row[0].split(';')[3] == "REV":
@@ -71,7 +71,7 @@ def make_dist_graph():
     graph = []
     for i in range(len(hash_table) * max_sub_array_size):
         graph.append([])
-    with open('../datasets/assoc.csv') as assoc_dataset:
+    with open('analize/datasets/assoc.csv') as assoc_dataset:
         reader = csv.reader(assoc_dataset)
 
         for row in reader:
