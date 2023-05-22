@@ -22,7 +22,7 @@ def take_messages(file):
     with open(file, 'r', encoding="utf-8") as file:
         data = json.load(file)
         for message in data:
-            mess.append(message["message"])
+            mess.append(message["post"]["text"])
 
     # data = pd.read_csv(file)
     # mess = data['text_clear']
@@ -32,7 +32,7 @@ def take_messages(file):
 
 def make_dict():
     dicts = {}
-    with open('kartaslovsent.csv', 'r', encoding="utf-8") as file:
+    with open('data/kartaslovsent.csv', 'r', encoding="utf-8") as file:
         reader = csv.DictReader(file)
         for row in reader:
             info = row['term;tag;value;pstv;ngtv;neut;dunno;pstvNgtvDisagreementRatio'].split(';')
@@ -93,4 +93,4 @@ def analize(file):
     #print("algo with relations: " + str(relation_result / len(res)))
 
 
-analize('data/labeled_tweets_clean.csv')
+print(analize('../../school/tg_parser/data/messages_moscowmap.json'))
