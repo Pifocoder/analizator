@@ -134,9 +134,9 @@ def parse_tg(urls):
     #    proxy=proxy)
 
     client.start()
-    with client:
-        client.loop.run_until_complete(main(urls, client))
-        client.loop.close()
-
-
-parse_tg(['https://t.me/moscowmap', 'https://t.me/topor'])
+    try:
+        with client:
+            client.loop.run_until_complete(main(urls, client))
+            client.loop.close()
+    except:
+        pass
