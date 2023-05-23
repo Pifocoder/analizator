@@ -14,11 +14,11 @@ def parse_vk_group(owner_id, access_token, api_version, count):
         for post in posts:
             result.append({
                 'post' : {
-                    'from_id': post['from_id'],
-                    'text': post['text'].replace('\n', '. '),
-                    'id': post['id'],
+                    'from_id': str(post['from_id']),
+                    'text': post['text'].replace('\n', '. ').replace('"', '').replace("'", ""),
+                    'id': str(post['id']),
                     'likes': post['likes']['count'],
-                    'viewCnt': post['views']['count']
+                    'viewCnt': post['views']['count'],
                 },
                 'comments' : []
             })
@@ -39,11 +39,11 @@ def parse_vk_group(owner_id, access_token, api_version, count):
                         if (comment['text'] != ''):
                             result[-1]['comments'].append(
                                 {
-                                    'id': comment['id'],
-                                    'text' : comment['text'].replace('\n', '. '),
+                                    'id': str(comment['id']),
+                                    'text' : comment['text'].replace('\n', '. ').replace('"', '').replace("'", ""),
                                     'likes' : comment['likes']['count'],
-                                    'author_id' : comment['from_id'],
-                                    'date_published': comment['date'],
+                                    'author_id' : str(comment['from_id']),
+                                    'date_published': str(comment['date']),
                                     'post_id': comment['post_id']
                                 }
                             )
@@ -51,8 +51,8 @@ def parse_vk_group(owner_id, access_token, api_version, count):
     return result
 
 def parse_vk(groups):
-    access_token = input("Enter VK access_token")
-    count = int(input("Enter number of posts"))
+    access_token = "4499afba4499afba4499afba9e478ab17d444994499afba208cd9122ecc52bfd98dc088"
+    count = 50
     api_version = "5.131"
 
     result = []

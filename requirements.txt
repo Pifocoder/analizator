@@ -2,3 +2,5 @@ requests
 pandas
 scikit-learn
 pymystem3
+psycopg2-binary
+flask

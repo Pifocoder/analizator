@@ -1,4 +1,5 @@
-from api_youtube import *
+from parsers.api_youtube import *
+import re
 
 def getVideoID_VideoURL(videoURL):
     from pytube import extract
@@ -17,7 +18,7 @@ def getBasicInfo(response):
 def makeCommDict(id, snippet, parentId = False):
     tmp = {
         'id': id,
-        'text': snippet['textOriginal'],
+        'text': snippet['textOriginal'].replace('"', '').replace("'", ""),
         'parent_id': parentId,
         'author': snippet['authorDisplayName'],
         'author_id': snippet['authorChannelId']['value'],
@@ -88,7 +89,7 @@ def getVideoInfo(videoID: str, channelID):
     videoInfo['commCnt'] = response['items'][0]['statistics']['commentCount']
     comments = commentThreads_VideoID(videoID)
     capt = list(getVideoCaptions(videoID))
-    videoInfo['captions'] = "".join(" ".join([a['text'] for a in capt]).split("Музыка"))
+    videoInfo['captions'] = "".join(" ".join([a['text'] for a in capt]).split("Музыка")).replace('"', '').replace("'", "")
     return { "videoINFO" : videoInfo,
              "comments" : comments }
 
@@ -114,7 +115,7 @@ def getINFO_posts(channelID):
     response = request.execute()
     responseItems = response['items']
     videoIDs.extend([item['id']['videoId'] for item in responseItems if item['id'].get('videoId', None) != None])
-    limit = 0
+    limit = 2
     # есть лимит на количество запросов, самая дорогая операция - получение списка всех видео на канале
     # поэтому делаю запрос на максимум 50-100 видео с канала
     while response.get('nextPageToken', None) and limit:
@@ -134,6 +135,8 @@ def getINFO_posts(channelID):
     for id_i in videoIDs:
         data = getVideoInfo(id_i, channelID)
         if data['videoINFO']['captions'] != "" and len(data['comments']) != 0:
+            data['videoINFO']['captions'] = data['videoINFO']['captions'].replace("'", "")
+            print(data['videoINFO']['captions'])
             videos.append(data)
     return videos
 
